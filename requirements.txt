@@ -3,7 +3,6 @@ future
 py3nvml
 prometheus_client
 netifaces
-pySMART
 pymdstat
 sparklines
 wifi
