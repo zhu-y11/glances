@@ -45,14 +45,6 @@ def get_data_files():
     return data_files
 
 
-def get_install_requires():
-    requires = ['psutil>=5.3.0', 'future']
-    if sys.platform.startswith('win'):
-        requires.append('bottle')
-        requires.append('requests')
-
-    return requires
-
 
 def get_install_extras_require():
     extras_require = {
@@ -114,7 +106,7 @@ setup(
     license='LGPLv3',
     keywords="cli curses monitoring system",
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
-    install_requires=get_install_requires(),
+    install_requires=install_requires(),
     extras_require=get_install_extras_require(),
     packages=['glances'],
     include_package_data=True,
