@@ -21,6 +21,7 @@
 
 import sys
 from numbers import Number
+import socket
 
 from glances.logger import logger
 from glances.exports.glances_export import GlancesExport
@@ -28,7 +29,29 @@ from glances.compat import iteritems, listkeys
 
 from prometheus_client import start_http_server, Gauge
 
+def detect_port(port, ip="127.0.0.1"):
+    """Test whether the port is occupied.
+    Args:
+        port (int): port number.
+        ip (str): Ip address.
+    Returns:
+        True -- it's possible to listen on this port for TCP/IPv4 or TCP/IPv6
+                connections.
+        False -- otherwise.
+    """
+    ready = True
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind((ip, port))
+        sock.listen(5)
+        sock.close()
+    except socket.error:
+        ready = False
+        raise RuntimeError("The server is already running on port {0}".format(port))
+    finally:
+        return ready
 
+    
 class Export(GlancesExport):
 
     """This class manages the Prometheus export module."""
@@ -62,8 +85,14 @@ class Export(GlancesExport):
 
     def init(self):
         """Init the Prometheus Exporter"""
+        
         try:
-            start_http_server(port=int(self.port), addr=self.host)
+            if detect_port(int(self.port)):  # check if the port is available
+                print(f"port {self.port} is available. start_http_server.")
+                start_http_server(int(self.port))
+            else:
+                print(f"[Warning]: port {port} was already in use. Use another port: 9033 ")
+                start_http_server(9033)
             print(f"Init the Prometheus Exporter with port:{self.port}")
         except Exception as e:
             logger.critical("Can not start Prometheus exporter on {}:{} ({})".format(self.host, self.port, e))
