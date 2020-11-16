@@ -7,4 +7,4 @@ pySMART
 pymdstat
 sparklines
 wifi
-cpuinfo
+py-cpuinfo
