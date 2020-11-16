@@ -93,7 +93,6 @@ class Export(GlancesExport):
             else:
                 print(f"[Warning]: port {port} was already in use. Use another port: 9033 ")
                 start_http_server(9033)
-            print(f"Init the Prometheus Exporter with port:{self.port}")
         except Exception as e:
             logger.critical("Can not start Prometheus exporter on {}:{} ({})".format(self.host, self.port, e))
             sys.exit(2)
@@ -106,7 +105,6 @@ class Export(GlancesExport):
 
         # Remove non number stats and convert all to float (for Boolean)
         data = {k: float(v) for (k, v) in iteritems(dict(zip(columns, points))) if isinstance(v, Number)}
-        print(data)
         # Write metrics to the Prometheus exporter
         for k, v in iteritems(data):
             # Prometheus metric name: prefix_<glances stats name>
