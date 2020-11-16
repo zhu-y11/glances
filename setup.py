@@ -6,7 +6,7 @@ import re
 import sys
 from io import open
 import pathlib
-
+import pkg_resources
 from setuptools import setup, Command, find_packages
 
 
