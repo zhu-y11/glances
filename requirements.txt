@@ -6,4 +6,5 @@ netifaces
 pymdstat
 sparklines
 wifi
+bottle
 py-cpuinfo
