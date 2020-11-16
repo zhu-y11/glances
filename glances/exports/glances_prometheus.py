@@ -89,10 +89,10 @@ class Export(GlancesExport):
         try:
             if detect_port(int(self.port)):  # check if the port is available
                 print(f"port {self.port} is available. start_http_server.")
-                start_http_server(port=int(self.port), addr=self.host)
+                start_http_server(port=8003)
             else:
                 print(f"[Warning]: port {port} was already in use. Use another port: 9033 ")
-                start_http_server(port=9033, addr=self.host)
+                start_http_server(port=8003)
         except Exception as e:
             logger.critical("Can not start Prometheus exporter on {}:{} ({})".format(self.host, self.port, e))
             sys.exit(2)
