@@ -6,7 +6,7 @@ import re
 import sys
 from io import open
 
-from setuptools import setup, Command
+from setuptools import setup, Command, find_packages
 
 
 if sys.version_info < (2, 7) or (3, 0) <= sys.version_info < (3, 4):
@@ -16,7 +16,12 @@ if sys.version_info < (2, 7) or (3, 0) <= sys.version_info < (3, 4):
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
 
-
+with pathlib.Path("requirements.txt").open() as requirements_txt:
+    install_requires = [
+        str(requirement)
+        for requirement in pkg_resources.parse_requirements(requirements_txt)
+    ]
+    
 # Global functions
 ##################
 
