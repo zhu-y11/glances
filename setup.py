@@ -5,6 +5,7 @@ import os
 import re
 import sys
 from io import open
+import pathlib
 
 from setuptools import setup, Command, find_packages
 
