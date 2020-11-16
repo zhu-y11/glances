@@ -64,6 +64,7 @@ class Export(GlancesExport):
         """Init the Prometheus Exporter"""
         try:
             start_http_server(port=int(self.port), addr=self.host)
+            print(f"Init the Prometheus Exporter{self.port}")
         except Exception as e:
             logger.critical("Can not start Prometheus exporter on {}:{} ({})".format(self.host, self.port, e))
             sys.exit(2)
