@@ -108,6 +108,7 @@ class Export(GlancesExport):
 
         # Remove non number stats and convert all to float (for Boolean)
         data = {k: float(v) for (k, v) in iteritems(dict(zip(columns, points))) if isinstance(v, Number)}
+        print(data)
         # Write metrics to the Prometheus exporter
         for k, v in iteritems(data):
             # Prometheus metric name: prefix_<glances stats name>
